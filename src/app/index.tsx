@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/native';
+import withStorybook from '../shared/hocs/withStorybook';
 
 const Container = styled.SafeAreaView`
   flex: 1;
@@ -19,4 +20,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default withStorybook(App);
