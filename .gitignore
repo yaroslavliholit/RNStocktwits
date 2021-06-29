@@ -27,8 +27,7 @@ DerivedData
 
 # Android/IntelliJ
 #
-build/
-.vs-code
+.vscode
 .idea
 .gradle
 local.properties
