@@ -1,5 +1,11 @@
 import styled from 'styled-components/native';
 
+export const Header = styled.View`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+`;
+
 export const Container = styled.View`
   display: flex;
   flex-direction: row;
@@ -7,6 +13,8 @@ export const Container = styled.View`
   align-items: center;
   border: 1px solid lightgray;
   height: 50px;
+  width: 100%;
+  margin-bottom: 20px;
 `;
 
 export const Menu = styled.View`
@@ -21,4 +29,5 @@ export const Menu = styled.View`
 
 export const Search = styled.View`
   width: 85%;
+  height: 100%;
 `;
