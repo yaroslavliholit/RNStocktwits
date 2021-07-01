@@ -13,9 +13,7 @@ const InputField: FC<Props> = props => {
 
   return (
     <S.Container {...props}>
-      {renderLeftIcon && (
-        <S.LeftIconContainer>{renderLeftIcon}</S.LeftIconContainer>
-      )}
+      {renderLeftIcon && <S.IconContainer>{renderLeftIcon}</S.IconContainer>}
       <S.InputField {...props} />
     </S.Container>
   );
