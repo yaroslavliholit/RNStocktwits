@@ -3,8 +3,9 @@ import React, {memo, FC} from 'react';
 import TrashIcon from '../../assets/icons/trash.svg';
 import MenuIcon from '../../assets/icons/menu.svg';
 import SearchIcon from '../../assets/icons/search.svg';
+import RightArrowIcon from '../../assets/icons/right-arrow.svg';
 
-export type IconType = 'trash' | 'menu' | 'search';
+export type IconType = 'trash' | 'menu' | 'search' | 'arrow-right';
 
 interface Props {
   type: IconType;
@@ -20,6 +21,7 @@ const Icon: FC<Props> = props => {
     trash: TrashIcon,
     menu: MenuIcon,
     search: SearchIcon,
+    ['arrow-right']: RightArrowIcon,
   };
 
   const Factory = mapTypeToIcon[type];
