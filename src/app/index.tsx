@@ -1,23 +1,15 @@
 import React from 'react';
-import styled from 'styled-components/native';
+import {Provider} from 'react-redux';
+import 'react-native-gesture-handler';
+
+import store from './redux';
+import Navigation from './navigation';
 import withStorybook from '../shared/hocs/withStorybook';
 
-const Container = styled.SafeAreaView`
-  flex: 1;
-  justify-content: center;
-  align-items: center;
-`;
-
-const Title = styled.Text`
-  text-align: center;
-`;
-
-const App = () => {
-  return (
-    <Container>
-      <Title>RNStocktwits</Title>
-    </Container>
-  );
-};
+const App = () => (
+  <Provider store={store}>
+    <Navigation />
+  </Provider>
+);
 
 export default withStorybook(App);
