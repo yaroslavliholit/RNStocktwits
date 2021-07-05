@@ -23,5 +23,8 @@ const getVariant = (positionType: SpacerPosition, sizeType: SpacerSize) => {
 };
 
 export const Spacer = styled.View<Props>`
-  ${({positionType, sizeType}) => getVariant(positionType, sizeType)}
+  ${({positionType, sizeType}) =>
+    Array.isArray(positionType)
+      ? positionType.map(e => getVariant(e, sizeType)).join(';')
+      : getVariant(positionType, sizeType)}
 `;
