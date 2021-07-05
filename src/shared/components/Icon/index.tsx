@@ -4,8 +4,16 @@ import TrashIcon from '../../assets/icons/trash.svg';
 import MenuIcon from '../../assets/icons/menu.svg';
 import SearchIcon from '../../assets/icons/search.svg';
 import RightArrowIcon from '../../assets/icons/right-arrow.svg';
+import UpArrowIcon from '../../assets/icons/up-arrow.svg';
+import DownArrowIcon from '../../assets/icons/down-arrow.svg';
 
-export type IconType = 'trash' | 'menu' | 'search' | 'arrow-right';
+export type IconType =
+  | 'trash'
+  | 'menu'
+  | 'search'
+  | 'arrow-right'
+  | 'arrow-up'
+  | 'arrow-down';
 
 interface Props {
   type: IconType;
@@ -14,15 +22,17 @@ interface Props {
   fill?: string;
 }
 
+const mapTypeToIcon = {
+  trash: TrashIcon,
+  menu: MenuIcon,
+  search: SearchIcon,
+  ['arrow-right']: RightArrowIcon,
+  ['arrow-up']: UpArrowIcon,
+  ['arrow-down']: DownArrowIcon,
+};
+
 const Icon: FC<Props> = props => {
   const {type} = props;
-
-  const mapTypeToIcon = {
-    trash: TrashIcon,
-    menu: MenuIcon,
-    search: SearchIcon,
-    ['arrow-right']: RightArrowIcon,
-  };
 
   const Factory = mapTypeToIcon[type];
 
