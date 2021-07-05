@@ -35,6 +35,10 @@ export const useSearchTickers = () => {
     }),
     [setSearchQuery, searchQuery],
   );
+
+  const handleClearSuggestions = useCallback(() => {
+    dispatch(clearSuggestions());
+  }, [dispatch]);
   // endregion
 
   // region ********** EFFECTS **********
@@ -48,9 +52,9 @@ export const useSearchTickers = () => {
 
   useEffect(() => {
     if (!searchQuery) {
-      dispatch(clearSuggestions());
+      handleClearSuggestions();
     }
-  }, [searchQuery, dispatch]);
+  }, [searchQuery, dispatch, handleClearSuggestions]);
   // endregion
 
   return {
@@ -58,5 +62,6 @@ export const useSearchTickers = () => {
     suggestions,
     loading,
     getSearchTickersProps,
+    handleClearSuggestions,
   };
 };
