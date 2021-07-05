@@ -1,36 +1,28 @@
-import React, {memo, FC} from 'react';
-import {ViewProps, TouchableOpacityProps} from 'react-native';
+import React, {memo, FC, useCallback} from 'react';
+import {TouchableOpacityProps} from 'react-native';
 
-import Icon from '../Icon';
 import Typography from '../Typography';
 import * as S from './styles';
 
-export interface Props extends ViewProps {
+export interface Props extends TouchableOpacityProps {
   label: string;
   color?: string;
-  onDelete?: () => void;
-  deletable?: boolean;
   withRoundCorners?: boolean;
-}
-
-export interface ChipLabelContainerProps extends TouchableOpacityProps {
-  color?: string;
-  deletable?: boolean;
+  onItemClick?: (label: string) => void;
 }
 
 const Chip: FC<Props> = props => {
-  const {label, color, deletable, onDelete} = props;
+  const {label, onItemClick} = props;
+
+  const handleClick = useCallback(() => {
+    if (onItemClick) {
+      onItemClick(label);
+    }
+  }, [label, onItemClick]);
 
   return (
-    <S.Chip {...props}>
-      <S.ChipLabelContainer deletable={deletable} color={color}>
-        <Typography variant={'button'}>{label}</Typography>
-      </S.ChipLabelContainer>
-      {deletable && (
-        <S.DeleteArea onPress={onDelete}>
-          <Icon type="trash" fill={'#ffffff'} width={14} height={14} />
-        </S.DeleteArea>
-      )}
+    <S.Chip {...props} onPress={handleClick}>
+      <Typography variant={'button'}>{label}</Typography>
     </S.Chip>
   );
 };
