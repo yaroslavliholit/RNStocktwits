@@ -5,7 +5,12 @@ import {createStackNavigator} from '@react-navigation/stack';
 import Home from '../../../screens/Home';
 import CompanyDetails from '../../../screens/CompanyDetails';
 
-const SearchStack = createStackNavigator();
+export type SearchNavigatorParams = {
+  Home: undefined;
+  CompanyDetails: {ticker: string};
+};
+
+const SearchStack = createStackNavigator<SearchNavigatorParams>();
 
 const SearchNavigator = () => (
   <SearchStack.Navigator initialRouteName={'Home'}>
