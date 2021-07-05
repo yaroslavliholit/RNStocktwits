@@ -12,7 +12,6 @@ configure(() => {
   require('../src/shared/components/Chip/index.stories');
   require('../src/shared/components/Typography/index.stories');
   require('../src/shared/components/InputField/index.stories');
-  require('../src/shared/components/Header/index.stories');
 }, module);
 
 // Refer to https://github.com/storybookjs/storybook/tree/master/app/react-native#start-command-parameters
