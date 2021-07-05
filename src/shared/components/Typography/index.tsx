@@ -4,7 +4,14 @@ import {TextProps} from 'react-native';
 import * as S from './styles';
 
 export interface Props extends TextProps {
-  variant: 'label' | 'button';
+  variant:
+    | 'heading'
+    | 'subtitle'
+    | 'label'
+    | 'button'
+    | 'important'
+    | 'danger'
+    | 'success';
 }
 
 const Typography = (props: PropsWithChildren<Props>) => (
