@@ -1,46 +1,49 @@
 import React, {memo, useCallback} from 'react';
-import {TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
 import {useSearchTickers} from '../../../store/search/hooks';
 import useDrawerNavigation from '../../hocs/useDrawerNavigation';
 import useTrackInputFocus from '../../hooks/useTrackInputFocus';
-import * as S from './styles';
 import Icon from '../Icon';
 import InputField from '../InputField';
 import SuggestionsList from '../SuggestionsList';
+import * as S from './styles';
+
+// TODO: add separate Search component
 
 const Header = () => {
   // region ********** DATA **********
-  const navigation = useNavigation();
+  const {navigate} = useNavigation();
   const {isFocus, getTrackInputFocusProps} = useTrackInputFocus();
   const {openDrawer} = useDrawerNavigation();
-  const {suggestions, getSearchTickersProps} = useSearchTickers();
+  const {suggestions, getSearchTickersProps, handleClearSuggestions} =
+    useSearchTickers();
+  const isSuggestionsExist = Boolean(suggestions && suggestions.length);
   // endregion
 
   // region ********** CALLBACKS **********
-  const handleNavigateToDetails = useCallback(
-    ({name}: Ticker) => {
-      navigation.navigate('CompanyDetails', {
-        companyName: name,
+  const handleSelectSearchItem = useCallback(
+    ({ticker}: Ticker) => {
+      navigate('CompanyDetails', {
+        ticker,
       });
+
+      handleClearSuggestions();
     },
-    [navigation],
+    [navigate, handleClearSuggestions],
   );
   // endregion
 
   // region ********** JSX **********
   return (
-    <S.Header>
+    <S.Header withSearchResults={isSuggestionsExist}>
       <S.Container>
         {!isFocus && (
-          <S.Menu>
-            <TouchableOpacity onPress={openDrawer}>
-              <Icon type={'menu'} width={15} height={15} fill={'#000000'} />
-            </TouchableOpacity>
-          </S.Menu>
+          <S.MenuButton onPress={openDrawer}>
+            <Icon type={'menu'} width={15} height={15} fill={'#000000'} />
+          </S.MenuButton>
         )}
-        <S.Search>
+        <S.SearchArea>
           <InputField
             {...getTrackInputFocusProps()}
             {...getSearchTickersProps()}
@@ -49,12 +52,12 @@ const Header = () => {
               <Icon type={'search'} width={15} height={15} fill={'#000000'} />
             }
           />
-        </S.Search>
+        </S.SearchArea>
       </S.Container>
       {suggestions && (
         <SuggestionsList
           items={suggestions}
-          onItemSelect={handleNavigateToDetails}
+          onItemSelect={handleSelectSearchItem}
         />
       )}
     </S.Header>

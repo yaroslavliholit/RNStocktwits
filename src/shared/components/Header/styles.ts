@@ -1,9 +1,10 @@
 import styled from 'styled-components/native';
 
-export const Header = styled.View`
+export const Header = styled.View<{withSearchResults?: boolean}>`
   display: flex;
   flex-direction: column;
   width: 100%;
+  height: ${props => (props.withSearchResults ? '100%' : 'auto')};
 `;
 
 export const Container = styled.View`
@@ -17,7 +18,7 @@ export const Container = styled.View`
   margin-bottom: 20px;
 `;
 
-export const Menu = styled.View`
+export const MenuButton = styled.TouchableOpacity`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -27,7 +28,6 @@ export const Menu = styled.View`
   border-right-width: 1px;
 `;
 
-export const Search = styled.View`
-  width: 85%;
-  height: 100%;
+export const SearchArea = styled.View<{isSearchFocused?: boolean}>`
+  width: ${props => (props.isSearchFocused ? '100%' : '85%')};
 `;
