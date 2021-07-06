@@ -1,4 +1,4 @@
-import React, {FC, memo} from 'react';
+import React, {memo, PropsWithChildren} from 'react';
 import {TouchableOpacityProps} from 'react-native';
 
 import * as S from './styles';
@@ -6,16 +6,16 @@ import * as S from './styles';
 export type ButtonVariant = 'default' | 'primary';
 
 export interface Props extends TouchableOpacityProps {
-  label: string;
+  label?: string;
   variant?: ButtonVariant;
 }
 
-const Button: FC<Props> = props => {
-  const {variant = 'default', label} = props;
+const Button = (props: PropsWithChildren<Props>) => {
+  const {variant = 'default', label, children} = props;
 
   return (
     <S.Button {...props}>
-      <S.Label variant={variant}>{label}</S.Label>
+      {children ?? <S.Label variant={variant}>{label}</S.Label>}
     </S.Button>
   );
 };
