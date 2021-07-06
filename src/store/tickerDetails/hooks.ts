@@ -9,6 +9,7 @@ import {
 } from './actions';
 import {RootState} from '../../app/redux';
 import {getFormatDate} from '../../shared/utils/date';
+import {isPositiveNumber} from '../../shared/utils/number';
 
 export const useFetchTickerDetails = (ticker: string) => {
   // region ********** DATA **********
@@ -28,6 +29,21 @@ export const useFetchTickerDetails = (ticker: string) => {
       tickerDetails.dailyOpenClose.prevDayClosePrice,
   );
 
+  const isCompanyDetailsLoading = useSelector(
+    ({tickerDetails}: RootState) => tickerDetails.companyInfo.loading,
+  );
+
+  const isDailyOpenCloseLoading = useSelector(
+    ({tickerDetails}: RootState) => tickerDetails.dailyOpenClose.loading,
+  );
+
+  const isAggregatesLoading = useSelector(
+    ({tickerDetails}: RootState) => tickerDetails.aggregates.loading,
+  );
+
+  const isAnyLoading =
+    isCompanyDetailsLoading || isDailyOpenCloseLoading || isAggregatesLoading;
+
   const priceChangeDifference = useMemo(() => {
     return endOfDayClosePrice && prevDayClosePrice
       ? Number((endOfDayClosePrice - prevDayClosePrice).toFixed(1))
@@ -43,6 +59,24 @@ export const useFetchTickerDetails = (ticker: string) => {
   const aggregatesBars = useSelector(
     ({tickerDetails}: RootState) => tickerDetails.aggregates.data,
   );
+
+  const aggregatesChartData = useMemo(() => {
+    return aggregatesBars?.map((e, index) => ({
+      y: Number(e.c.toFixed(1)),
+      x: index,
+    }));
+  }, [aggregatesBars]);
+
+  const isPriceGoUp = isPositiveNumber(priceChangeDifference || 0);
+
+  const companyParams = [
+    {label: 'Selector:', value: companyDetails?.sector},
+    {label: 'Industry:', value: companyDetails?.industry},
+    {label: 'CEO:', value: companyDetails?.ceo},
+    {label: 'Employees:', value: companyDetails?.employees},
+    {label: 'Address:', value: companyDetails?.hq_address},
+    {label: 'Phone:', value: companyDetails?.phone},
+  ];
   // endregion
 
   // region ********** CALLBACKS **********
@@ -55,7 +89,7 @@ export const useFetchTickerDetails = (ticker: string) => {
       dispatch(
         fetchDailyOpenCloseData({
           ticker: value,
-          date: getFormatDate({extraDay: -3}),
+          date: getFormatDate({extraDay: -4}),
           closeDate: 'current',
         }),
       );
@@ -63,7 +97,7 @@ export const useFetchTickerDetails = (ticker: string) => {
       dispatch(
         fetchDailyOpenCloseData({
           ticker: value,
-          date: getFormatDate({extraDay: -4}),
+          date: getFormatDate({extraDay: -5}),
           closeDate: 'previous',
         }),
       );
@@ -86,6 +120,9 @@ export const useFetchTickerDetails = (ticker: string) => {
     lastAvailablePrice: endOfDayClosePrice,
     priceChangeDifference,
     priceChangeDifferencePercent,
-    aggregatesBars,
+    aggregatesChartData,
+    companyParams,
+    isPriceGoUp,
+    isAnyLoading,
   };
 };

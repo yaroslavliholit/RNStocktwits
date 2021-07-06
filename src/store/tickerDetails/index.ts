@@ -34,6 +34,7 @@ const tickerDetails = createSlice({
       })
       .addCase(fetchTickerDetails.fulfilled, (state, action) => {
         state.companyInfo.data = action.payload;
+        state.companyInfo.loading = false;
       })
       .addCase(fetchTickerDetails.rejected, state => {
         state.companyInfo.loading = false;
@@ -44,10 +45,12 @@ const tickerDetails = createSlice({
       .addCase(fetchDailyOpenCloseData.fulfilled, (state, action) => {
         if (action.meta.arg.closeDate === 'current' && action.payload.close) {
           state.dailyOpenClose.endOfDayClosePrice = action.payload.close;
+          state.dailyOpenClose.loading = false;
         }
 
         if (action.meta.arg.closeDate === 'previous' && action.payload.close) {
           state.dailyOpenClose.prevDayClosePrice = action.payload.close;
+          state.dailyOpenClose.loading = false;
         }
       })
       .addCase(fetchDailyOpenCloseData.rejected, state => {
@@ -58,6 +61,7 @@ const tickerDetails = createSlice({
       })
       .addCase(fetchAggregatesBars.fulfilled, (state, action) => {
         state.aggregates.data = action.payload.results;
+        state.aggregates.loading = false;
       })
       .addCase(fetchAggregatesBars.rejected, state => {
         state.aggregates.loading = false;
