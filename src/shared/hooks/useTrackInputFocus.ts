@@ -15,8 +15,9 @@ const useTrackInputFocus = () => {
     () => ({
       onFocus: handleFocus,
       onBlur: handleBlur,
+      isFocus: isInputInFocus,
     }),
-    [handleBlur, handleFocus],
+    [isInputInFocus, handleBlur, handleFocus],
   );
 
   return {
