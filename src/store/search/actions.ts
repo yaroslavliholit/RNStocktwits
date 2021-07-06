@@ -5,7 +5,7 @@ import httpAgent from '../../services/httpAgent';
 import apiPaths from '../../shared/constants/apiPaths';
 
 interface TickersResponse {
-  results: Ticker[];
+  results: Nullable<Ticker[]>;
 }
 
 export const searchSymbolsCompanies = createAsyncThunk(

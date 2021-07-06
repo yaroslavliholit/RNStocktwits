@@ -10,13 +10,13 @@ const SEARCH_DELAY = 500;
 
 export const useSearchTickers = () => {
   // region ********** DATA **********
+  const dispatch = useDispatch();
+
   const [searchQuery, setSearchQuery] = useState('');
 
-  const {suggestions, loading} = useSelector(
+  const {suggestions, loading, searchEmpty} = useSelector(
     (state: RootState) => state.search,
   );
-
-  const dispatch = useDispatch();
   // endregion
 
   // region ********** CALLBACKS **********
@@ -63,5 +63,6 @@ export const useSearchTickers = () => {
     loading,
     getSearchTickersProps,
     handleClearSuggestions,
+    searchEmpty,
   };
 };
