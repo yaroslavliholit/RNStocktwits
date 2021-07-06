@@ -1,10 +1,10 @@
 import React, {memo, FC} from 'react';
-import {SafeAreaView} from 'react-native';
+import {SafeAreaView, ActivityIndicator} from 'react-native';
 import {RouteProp} from '@react-navigation/native';
+import {useTheme} from 'styled-components';
 
 import {useFetchTickerDetails} from '../../store/tickerDetails/hooks';
 import {getRandomColor} from '../../shared/utils/color';
-import {isPositiveNumber} from '../../shared/utils/number';
 import {SearchNavigatorParams} from '../../app/navigation/SearchNavigator';
 import Header from '../../shared/components/Header';
 import Typography from '../../shared/components/Typography';
@@ -12,8 +12,8 @@ import Spacer from '../../shared/components/Spacer';
 import Chip from '../../shared/components/Chip';
 import Icon from '../../shared/components/Icon';
 import LineChart from '../../shared/components/LineChart';
-
 import * as S from './styles';
+import ShowMoreText from '../../shared/components/ShowMoreText';
 
 type CompanyDetailsNavigationProp = RouteProp<
   SearchNavigatorParams,
@@ -25,38 +25,32 @@ interface Props {
 }
 
 const CompanyDetails: FC<Props> = ({route}) => {
+  const {colors} = useTheme();
   const {ticker} = route.params;
+
   const {
     companyDetails,
     lastAvailablePrice,
     priceChangeDifference,
     triggerSearchTicker,
     priceChangeDifferencePercent,
-    aggregatesBars,
+    aggregatesChartData,
+    companyParams,
+    isPriceGoUp,
+    isAnyLoading,
   } = useFetchTickerDetails(ticker);
 
-  const isPriceGoUp = isPositiveNumber(priceChangeDifference || 0);
-
-  if (!companyDetails || !aggregatesBars) {
+  if (!companyDetails) {
     return null;
   }
 
-  const width = 350;
-  const height = 200;
-
-  const data = aggregatesBars.map((e, index) => ({
-    y: Number(e.c.toFixed(1)),
-    x: index,
-  }));
-
-  const companyParams = [
-    {label: 'Selector:', value: companyDetails.sector},
-    {label: 'Industry:', value: companyDetails.industry},
-    {label: 'CEO:', value: companyDetails.ceo},
-    {label: 'Employees:', value: companyDetails.employees},
-    {label: 'Address:', value: companyDetails.hq_address},
-    {label: 'Phone:', value: companyDetails.phone},
-  ];
+  if (isAnyLoading) {
+    return (
+      <S.SpinnerWrapper>
+        <ActivityIndicator size={'large'} />
+      </S.SpinnerWrapper>
+    );
+  }
 
   return (
     <SafeAreaView>
@@ -77,21 +71,21 @@ const CompanyDetails: FC<Props> = ({route}) => {
             <Typography variant={'heading'}>${lastAvailablePrice}</Typography>
           </Spacer>
           <S.RowContainer>
-            {priceChangeDifference && (
+            {Boolean(priceChangeDifference) && (
               <Spacer positionType={'right'} sizeType={'small'}>
                 <Typography variant={isPriceGoUp ? 'success' : 'danger'}>
                   {priceChangeDifference}
                 </Typography>
               </Spacer>
             )}
-            {priceChangeDifferencePercent && (
+            {Boolean(priceChangeDifferencePercent) && (
               <S.RowContainer>
                 <Spacer positionType={'right'} sizeType={'small'}>
                   <Icon
                     type={isPriceGoUp ? 'arrow-up' : 'arrow-down'}
                     width={15}
                     height={15}
-                    fill={isPriceGoUp ? '#58D38C' : '#E83E3E'}
+                    fill={isPriceGoUp ? colors.text.success : colors.text.error}
                   />
                 </Spacer>
                 <Typography variant={isPriceGoUp ? 'success' : 'danger'}>
@@ -103,14 +97,16 @@ const CompanyDetails: FC<Props> = ({route}) => {
         </Spacer>
         {/* endregion */}
 
-        {/* Chart */}
-        <LineChart
-          width={width}
-          height={height}
-          data={data}
-          strokeColor={isPriceGoUp ? '#58D38C' : '#E83E3E'}
-        />
-        {/* Chart */}
+        {/* region ********** Chart ********** */}
+        <Spacer positionType={'bottom'} sizeType={'medium'}>
+          <LineChart
+            width={350}
+            height={150}
+            data={aggregatesChartData || []}
+            strokeColor={isPriceGoUp ? colors.text.success : colors.text.error}
+          />
+        </Spacer>
+        {/* endregion */}
 
         {/* region ********** About ********** */}
         <Spacer positionType={'bottom'} sizeType={'medium'}>
@@ -122,7 +118,7 @@ const CompanyDetails: FC<Props> = ({route}) => {
 
           <Spacer positionType={'bottom'} sizeType={'medium'}>
             {companyParams
-              .filter(e => Boolean(e.value))
+              .filter(({value}) => Boolean(value))
               .map(({label, value}) => (
                 <Spacer key={label} positionType={'bottom'} sizeType={'small'}>
                   <S.RowContainer>
@@ -136,13 +132,16 @@ const CompanyDetails: FC<Props> = ({route}) => {
           </Spacer>
         </Spacer>
 
-        <Spacer positionType={'bottom'} sizeType={'medium'}>
+        {companyDetails.description && (
           <Spacer positionType={'bottom'} sizeType={'medium'}>
-            <Typography variant="subtitle">Description</Typography>
-          </Spacer>
+            <Spacer positionType={'bottom'} sizeType={'medium'}>
+              <Typography variant="subtitle">Description</Typography>
+            </Spacer>
 
-          <Typography variant="label">{companyDetails.description}</Typography>
-        </Spacer>
+            <ShowMoreText text={companyDetails.description} />
+          </Spacer>
+        )}
+
         {/* endregion */}
 
         {/* region ********** Tags ********** */}
