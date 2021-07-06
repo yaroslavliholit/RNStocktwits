@@ -1,10 +1,12 @@
 import {DefaultTheme} from '@react-navigation/native';
 
+import theme from './';
+
 const navigationTheme = {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
-    background: 'white',
+    background: theme.colors.bg.primary,
   },
 };
 

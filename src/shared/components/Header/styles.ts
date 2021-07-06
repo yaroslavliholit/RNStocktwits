@@ -1,21 +1,15 @@
 import styled from 'styled-components/native';
 
-export const Header = styled.View<{withSearchResults?: boolean}>`
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: ${props => (props.withSearchResults ? '100%' : 'auto')};
-`;
-
 export const Container = styled.View`
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  border: 1px solid lightgray;
+  border: 1px solid ${({theme}) => theme.colors.bg.secondary};
   height: 50px;
   width: 100%;
-  margin-bottom: 20px;
 `;
 
 export const MenuButton = styled.TouchableOpacity`
@@ -24,7 +18,7 @@ export const MenuButton = styled.TouchableOpacity`
   align-items: center;
   width: 15%;
   height: 100%;
-  border-right-color: lightgray;
+  border-right-color: ${({theme}) => theme.colors.bg.secondary};
   border-right-width: 1px;
 `;
 

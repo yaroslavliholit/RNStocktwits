@@ -2,9 +2,9 @@ import styled from 'styled-components/native';
 
 export const List = styled.FlatList`
   display: flex;
-  flex-wrap: wrap;
   flex-direction: column;
   width: 100%;
+  height: 100%;
 `;
 
 export const ListItem = styled.TouchableOpacity`
@@ -12,8 +12,8 @@ export const ListItem = styled.TouchableOpacity`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  padding: 10px;
-  margin-bottom: 5px;
+  width: 100%;
+  padding: ${({theme}) => `${theme.spacing.m} 0px`};
 `;
 
 export const ListLabelContainer = styled.View`

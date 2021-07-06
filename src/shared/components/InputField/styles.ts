@@ -9,8 +9,10 @@ export const Container = styled.View<Props>`
   align-items: center;
   justify-content: space-between;
   height: 100%;
-  border: ${({withBorder}) => (withBorder ? '1px solid lightgray' : 'none')};
-  border-radius: ${({withBorder}) => (withBorder ? '4px' : '0px')};
+  border: ${({withBorder, theme}) =>
+    withBorder ? `1px solid ${theme.colors.ui.secondary}` : 'none'};
+  border-radius: ${({withBorder, theme}) =>
+    withBorder ? theme.radius.small : '0px'};
 `;
 
 export const IconContainer = styled.View`
@@ -19,7 +21,7 @@ export const IconContainer = styled.View`
   align-items: center;
   width: 10%;
   height: 100%;
-  margin: 0 5px;
+  margin: 0 ${({theme}) => theme.spacing.s};
 `;
 
 export const InputField = styled.TextInput<Props>`

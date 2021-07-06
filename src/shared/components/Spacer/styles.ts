@@ -1,11 +1,12 @@
 import styled from 'styled-components/native';
 
+import theme from '../../../app/theme';
 import {Props, SpacerPosition, SpacerSize} from './';
 
 const sizeVariant = {
-  small: 5,
-  medium: 15,
-  large: 20,
+  small: theme.spacing.s,
+  medium: theme.spacing.m,
+  large: theme.spacing.l,
 };
 
 const positionVariant = {

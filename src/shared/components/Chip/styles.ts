@@ -8,8 +8,9 @@ export const Chip = styled.TouchableOpacity<Props>`
   align-items: center;
   flex-direction: row;
   height: 40px;
-  padding: 5px 20px;
-  border-radius: ${props => (props.withRoundCorners ? '40px' : '3px')};
+  padding: ${({theme}) => `${theme.spacing.s} ${theme.spacing.l}`};
+  border-radius: ${({theme, withRoundCorners}) =>
+    withRoundCorners ? theme.radius.large : theme.radius.small};
   overflow: hidden;
-  background-color: ${props => props.color || 'green'};
+  background-color: ${({color}) => color};
 `;
