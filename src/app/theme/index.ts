@@ -1,7 +1,19 @@
 import {DefaultTheme} from 'styled-components';
 
-export const themeValues = {};
+import colors from './colors';
+import sizes from './sizes';
+import spacing from './spacing';
+import radius from './radius';
 
-const theme: DefaultTheme = {};
+export const themeValues = {
+  colors,
+  sizes,
+  spacing,
+  radius,
+};
+
+const theme: DefaultTheme = {
+  ...themeValues,
+};
 
 export default theme;
