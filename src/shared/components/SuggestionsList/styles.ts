@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
 export const List = styled.FlatList`
   display: flex;
@@ -7,7 +8,7 @@ export const List = styled.FlatList`
   height: 100%;
 `;
 
-export const ListItem = styled.TouchableOpacity`
+export const ListItem = styled(TouchableOpacity)`
   display: flex;
   flex-direction: row;
   align-items: center;
