@@ -12,16 +12,18 @@ export const ListItem = styled(TouchableOpacity)`
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
   width: 100%;
   padding: ${({theme}) => `${theme.spacing.m} 0px`};
 `;
 
 export const ListLabelContainer = styled.View`
-  width: 75%;
+  display: flex;
+  flex-direction: row;
+  width: 57%;
+  margin-right: auto;
 `;
 
-export const ListIconContainer = styled.View`
+export const ListIconContainer = styled.View<{positionType: 'left' | 'right'}>`
   width: 10%;
   display: flex;
   justify-content: center;

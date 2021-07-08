@@ -3,6 +3,7 @@ import React, {memo, FC, useCallback} from 'react';
 import Typography from '../Typography';
 import Icon from '../Icon';
 import * as S from './styles';
+import Spacer from '../Spacer';
 
 interface Props<T> {
   items: T[];
@@ -28,13 +29,18 @@ const SuggestionsList: FC<Props<Ticker>> = ({items, onItemSelect}) => {
 
         return (
           <S.ListItem onPress={handleItemPress(data)}>
-            <S.ListIconContainer>
+            <S.ListIconContainer positionType={'left'}>
               <Icon type={'search'} fill={'#000000'} width={15} height={15} />
             </S.ListIconContainer>
             <S.ListLabelContainer>
-              <Typography variant={'label'}>{data.name}</Typography>
+              <Spacer positionType={'right'} sizeType={'small'}>
+                <Typography variant={'important'}>{data.ticker}</Typography>
+              </Spacer>
+              <Typography variant={'label'} numberOfLines={1}>
+                {data.name}
+              </Typography>
             </S.ListLabelContainer>
-            <S.ListIconContainer>
+            <S.ListIconContainer positionType={'right'}>
               <Icon
                 type={'arrow-right'}
                 fill={'#000000'}
