@@ -11,12 +11,18 @@ interface Props {
 }
 
 const ShowMoreText: FC<Props> = ({text}) => {
-  const {trimmedText, shouldTrimText, isTextTrimmed, handleToddleCropText} =
-    useTrimText(text);
+  const {
+    getNumberOfLineProp,
+    shouldTrimText,
+    isTextTrimmed,
+    handleToddleCropText,
+  } = useTrimText(text);
 
   return (
     <>
-      <Typography variant={'label'}>{trimmedText}</Typography>
+      <Typography {...getNumberOfLineProp()} variant={'label'}>
+        {text}
+      </Typography>
       {shouldTrimText && (
         <Spacer positionType={'top'} sizeType={'small'}>
           <Button variant={'default'} onPress={handleToddleCropText}>

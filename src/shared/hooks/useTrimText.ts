@@ -1,28 +1,32 @@
 import {useCallback, useEffect, useState} from 'react';
 
 const MAX_TEXT_SIZE = 250;
+const TRIMMED_NUMBER_OF_LINES = 3;
 
 const useTrimText = (text: string) => {
   // ****** DATA START ******
   const shouldTrimText = text.length > MAX_TEXT_SIZE;
 
-  const [trimmedText, setTrimmedText] = useState(text);
+  const [numberOfLines, setNumberOfLines] = useState<Nullable<number>>(null);
   const [isTextTrimmed, setIsTextTrimmed] = useState(shouldTrimText);
   // ****** DATA END ******
 
   // ****** CALLBACKS START ******
   const trimText = useCallback(() => {
-    const updatedString = text.substring(0, MAX_TEXT_SIZE);
-    setTrimmedText(updatedString);
+    setNumberOfLines(TRIMMED_NUMBER_OF_LINES);
     setIsTextTrimmed(true);
-  }, [text]);
+  }, []);
 
   const handleToddleCropText = useCallback(() => {
     setIsTextTrimmed(prevState => !prevState);
     if (isTextTrimmed) {
-      setTrimmedText(text);
+      setNumberOfLines(null);
     }
-  }, [isTextTrimmed, text]);
+  }, [isTextTrimmed]);
+
+  const getNumberOfLineProp = useCallback(() => {
+    return numberOfLines ? {numberOfLines} : {};
+  }, [numberOfLines]);
   // ****** CALLBACKS END ******
 
   // ****** EFFECTS START ******
@@ -36,7 +40,7 @@ const useTrimText = (text: string) => {
   return {
     isTextTrimmed,
     shouldTrimText,
-    trimmedText,
+    getNumberOfLineProp,
     handleToddleCropText,
   };
 };
