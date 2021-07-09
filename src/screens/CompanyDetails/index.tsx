@@ -12,8 +12,8 @@ import Spacer from '../../shared/components/Spacer';
 import Chip from '../../shared/components/Chip';
 import Icon from '../../shared/components/Icon';
 import LineChart from '../../shared/components/LineChart';
-import * as S from './styles';
 import ShowMoreText from '../../shared/components/ShowMoreText';
+import * as S from './styles';
 
 type CompanyDetailsNavigationProp = RouteProp<
   SearchNavigatorParams,
@@ -47,7 +47,7 @@ const CompanyDetails: FC<Props> = ({route}) => {
   if (isAnyLoading) {
     return (
       <S.SpinnerWrapper>
-        <ActivityIndicator size={'large'} />
+        <ActivityIndicator size={'large'} color={colors.brand.primary} />
       </S.SpinnerWrapper>
     );
   }
@@ -141,7 +141,6 @@ const CompanyDetails: FC<Props> = ({route}) => {
             <ShowMoreText text={companyDetails.description} />
           </Spacer>
         )}
-
         {/* endregion */}
 
         {/* region ********** Tags ********** */}
