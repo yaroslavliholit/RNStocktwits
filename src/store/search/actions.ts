@@ -1,6 +1,6 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {POLYGON_API_KEY} from 'react-native-dotenv';
 
+import ENV from '../../shared/constants/env';
 import httpAgent from '../../services/httpAgent';
 import apiPaths from '../../shared/constants/apiPaths';
 
@@ -18,7 +18,7 @@ export const searchSymbolsCompanies = createAsyncThunk(
         sort: 'ticker',
         order: 'asc',
         limit: 10,
-        apiKey: POLYGON_API_KEY,
+        apiKey: ENV.POLYGON_API_KEY,
       },
     });
 

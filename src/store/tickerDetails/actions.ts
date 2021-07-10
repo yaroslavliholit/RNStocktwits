@@ -1,6 +1,6 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {POLYGON_API_KEY} from 'react-native-dotenv';
 
+import ENV from '../../shared/constants/env';
 import {getFormatDate} from '../../shared/utils/date';
 import httpAgent from '../../services/httpAgent';
 import apiPaths from '../../shared/constants/apiPaths';
@@ -16,7 +16,7 @@ export const fetchTickerDetails = createAsyncThunk(
   async (ticker: string) => {
     const {data} = await httpAgent.get(apiPaths.meta.symbols(ticker), {
       params: {
-        apiKey: POLYGON_API_KEY,
+        apiKey: ENV.POLYGON_API_KEY,
       },
     });
 
@@ -31,7 +31,7 @@ export const fetchDailyOpenCloseData = createAsyncThunk(
       apiPaths.dailyOpenClose({ticker, date}),
       {
         params: {
-          apiKey: POLYGON_API_KEY,
+          apiKey: ENV.POLYGON_API_KEY,
           adjusted: true,
         },
       },
@@ -51,7 +51,7 @@ export const fetchAggregatesBars = createAsyncThunk(
       apiPaths.stocks.aggregates({stocksTicker, from, to}),
       {
         params: {
-          apiKey: POLYGON_API_KEY,
+          apiKey: ENV.POLYGON_API_KEY,
         },
       },
     );

@@ -1,8 +1,9 @@
 import axios from 'axios';
-import {POLYGON_API_BASE_URL} from 'react-native-dotenv';
+
+import ENV from '../../shared/constants/env';
 
 const httpAgent = axios.create({
-  baseURL: `${POLYGON_API_BASE_URL}`,
+  baseURL: `${ENV.POLYGON_API_BASE_URL}`,
 });
 
 export default httpAgent;
