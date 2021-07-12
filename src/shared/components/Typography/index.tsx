@@ -11,7 +11,8 @@ export interface Props extends TextProps {
     | 'button'
     | 'important'
     | 'danger'
-    | 'success';
+    | 'success'
+    | 'link';
 }
 
 const Typography = (props: PropsWithChildren<Props>) => (

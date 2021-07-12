@@ -46,6 +46,14 @@ const getTypographyVariant = (theme: DefaultTheme) => ({
     font-weight: 600;
     color: ${theme.colors.text.success};
   `,
+  link: () => `
+    font-family: ${theme.fonts.regular};
+    font-size: ${theme.sizes.s};
+    font-weight: 400;
+    color: ${theme.colors.brand.primary};
+    text-decoration: underline;
+    text-decoration-color: ${theme.colors.brand.primary};
+  `,
 });
 
 export const Typography = styled.Text<Props>`
