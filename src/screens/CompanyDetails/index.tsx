@@ -13,6 +13,7 @@ import Chip from '../../shared/components/Chip';
 import Icon from '../../shared/components/Icon';
 import LineChart from '../../shared/components/LineChart';
 import ShowMoreText from '../../shared/components/ShowMoreText';
+import TickerMap from '../../shared/containers/TickerMap';
 import * as S from './styles';
 
 type CompanyDetailsNavigationProp = RouteProp<
@@ -83,19 +84,18 @@ const CompanyDetails: FC<Props> = ({route}) => {
         {/* endregion */}
 
         {/* region ********** Price ********** */}
-        <Spacer positionType={['top', 'bottom']} sizeType={'medium'}>
-          <Spacer positionType={'bottom'} sizeType={'small'}>
-            <Typography variant={'heading'}>${lastAvailablePrice}</Typography>
-          </Spacer>
-          <S.RowContainer>
-            {Boolean(priceChangeDifference) && (
+        {priceChangeDifference && priceChangeDifferencePercent && (
+          <Spacer positionType={['top', 'bottom']} sizeType={'medium'}>
+            <Spacer positionType={'bottom'} sizeType={'small'}>
+              <Typography variant={'heading'}>${lastAvailablePrice}</Typography>
+            </Spacer>
+            <S.RowContainer>
               <Spacer positionType={'right'} sizeType={'small'}>
                 <Typography variant={isPriceGoUp ? 'success' : 'danger'}>
                   {priceChangeDifference}
                 </Typography>
               </Spacer>
-            )}
-            {Boolean(priceChangeDifferencePercent) && (
+
               <S.RowContainer>
                 <Spacer positionType={'right'} sizeType={'small'}>
                   <Icon
@@ -109,9 +109,10 @@ const CompanyDetails: FC<Props> = ({route}) => {
                   {priceChangeDifferencePercent}
                 </Typography>
               </S.RowContainer>
-            )}
-          </S.RowContainer>
-        </Spacer>
+            </S.RowContainer>
+          </Spacer>
+        )}
+
         {/* endregion */}
 
         {/* region ********** Chart ********** */}
@@ -158,6 +159,12 @@ const CompanyDetails: FC<Props> = ({route}) => {
             <ShowMoreText text={companyDetails.description} />
           </Spacer>
         )}
+        {/* endregion */}
+
+        {/* region ********** Map ********** */}
+        <Spacer positionType={'bottom'} sizeType={'medium'}>
+          <TickerMap ticker={companyDetails} />
+        </Spacer>
         {/* endregion */}
 
         {/* region ********** Tags ********** */}
