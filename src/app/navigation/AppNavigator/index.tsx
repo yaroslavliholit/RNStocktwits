@@ -1,16 +1,15 @@
 import React, {memo} from 'react';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 
-// Screens
-import SearchNavigator from '../SearchNavigator';
-import AboutUs from '../../../screens/AboutUs';
+import APP_NAVIGATOR_ROUTES, {INITIAL_ROUTE_NAME} from './config';
 
 const Drawer = createDrawerNavigator();
 
 const AppNavigator = () => (
-  <Drawer.Navigator initialRouteName={'SearchNavigator'}>
-    <Drawer.Screen name={'SearchNavigator'} component={SearchNavigator} />
-    <Drawer.Screen name={'AboutUs'} component={AboutUs} />
+  <Drawer.Navigator initialRouteName={INITIAL_ROUTE_NAME}>
+    {APP_NAVIGATOR_ROUTES.map(route => (
+      <Drawer.Screen key={route.name} {...route} />
+    ))}
   </Drawer.Navigator>
 );
 
