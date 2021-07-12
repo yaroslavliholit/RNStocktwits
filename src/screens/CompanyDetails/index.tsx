@@ -1,6 +1,6 @@
-import React, {memo, FC} from 'react';
+import React, {memo, FC, useCallback} from 'react';
 import {SafeAreaView, ActivityIndicator} from 'react-native';
-import {RouteProp} from '@react-navigation/native';
+import {RouteProp, useNavigation} from '@react-navigation/native';
 import {useTheme} from 'styled-components';
 
 import {useFetchTickerDetails} from '../../store/tickerDetails/hooks';
@@ -26,7 +26,8 @@ interface Props {
 
 const CompanyDetails: FC<Props> = ({route}) => {
   const {colors} = useTheme();
-  const {ticker} = route.params;
+  const {navigate} = useNavigation();
+  const {ticker: tickerName} = route.params;
 
   const {
     companyDetails,
@@ -38,7 +39,13 @@ const CompanyDetails: FC<Props> = ({route}) => {
     companyParams,
     isPriceGoUp,
     isAnyLoading,
-  } = useFetchTickerDetails(ticker);
+  } = useFetchTickerDetails(tickerName);
+
+  // region ********** CALLBACKS **********
+  const handleHistoryBack = useCallback(() => {
+    navigate('Home');
+  }, [navigate]);
+  // endregion
 
   if (!companyDetails) {
     return null;
@@ -54,7 +61,17 @@ const CompanyDetails: FC<Props> = ({route}) => {
 
   return (
     <SafeAreaView>
-      <Header />
+      <Header
+        onButtonPress={handleHistoryBack}
+        renderLeftIcon={
+          <Icon
+            type={'arrow-left'}
+            width={15}
+            height={15}
+            fill={colors.ui.secondary}
+          />
+        }
+      />
       <S.Container>
         {/* region ********** Title ********** */}
         <S.RowContainer>

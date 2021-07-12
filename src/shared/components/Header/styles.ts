@@ -12,6 +12,10 @@ export const Container = styled.View`
   width: 100%;
 `;
 
+export const SearchArea = styled.View<{isSearchFocused?: boolean}>`
+  width: ${props => (props.isSearchFocused ? '100%' : '85%')};
+`;
+
 export const MenuButton = styled.TouchableOpacity`
   display: flex;
   justify-content: center;
@@ -20,8 +24,4 @@ export const MenuButton = styled.TouchableOpacity`
   height: 100%;
   border-right-color: ${({theme}) => theme.colors.bg.secondary};
   border-right-width: 1px;
-`;
-
-export const SearchArea = styled.View<{isSearchFocused?: boolean}>`
-  width: ${props => (props.isSearchFocused ? '100%' : '85%')};
 `;
