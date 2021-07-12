@@ -1,5 +1,7 @@
 import React, {FC, memo} from 'react';
-import {Polyline, Svg} from 'react-native-svg';
+import {Polyline} from 'react-native-svg';
+
+import * as S from './styles';
 
 interface Vector {
   x: number;
@@ -48,14 +50,14 @@ const LineChart: FC<Props> = ({
 
   // region ********** JSX **********
   return (
-    <Svg height={height} width={width}>
+    <S.SvgContainer height={height} width={width}>
       <Polyline
         points={points}
         fill="none"
         stroke={strokeColor}
         strokeWidth={strokeWidth}
       />
-    </Svg>
+    </S.SvgContainer>
   );
   // endregion
 };
