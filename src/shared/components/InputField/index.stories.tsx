@@ -1,12 +1,12 @@
 import React from 'react';
 import {storiesOf} from '@storybook/react-native';
 
-import StorybookSpacer from '../StorybookSpacer';
+import storybookSpacerDecorator from '../../hocs/storybookSpacerDecorator';
 import InputField from './index';
 import Icon from '../Icon';
 
 storiesOf('InputField', module)
-  .addDecorator(getStory => <StorybookSpacer>{getStory()}</StorybookSpacer>)
+  .addDecorator(storybookSpacerDecorator)
   .add('Default', () => <InputField placeholder={'Search'} withBorder />)
   .add('With Icon', () => (
     <InputField
