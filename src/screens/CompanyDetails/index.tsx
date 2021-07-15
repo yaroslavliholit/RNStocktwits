@@ -26,6 +26,7 @@ interface Props {
 }
 
 const CompanyDetails: FC<Props> = ({route}) => {
+  // region ********** DATA **********
   const {colors} = useTheme();
   const {navigate} = useNavigation();
   const {ticker: tickerName} = route.params;
@@ -41,6 +42,7 @@ const CompanyDetails: FC<Props> = ({route}) => {
     isPriceGoUp,
     isAnyLoading,
   } = useFetchTickerDetails(tickerName);
+  // endregion
 
   // region ********** CALLBACKS **********
   const handleHistoryBack = useCallback(() => {
@@ -52,6 +54,7 @@ const CompanyDetails: FC<Props> = ({route}) => {
     return null;
   }
 
+  // region ********** JSX **********
   if (isAnyLoading) {
     return (
       <S.SpinnerWrapper>
@@ -95,7 +98,6 @@ const CompanyDetails: FC<Props> = ({route}) => {
                   {priceChangeDifference}
                 </Typography>
               </Spacer>
-
               <S.RowContainer>
                 <Spacer positionType={'right'} sizeType={'small'}>
                   <Icon
@@ -112,18 +114,21 @@ const CompanyDetails: FC<Props> = ({route}) => {
             </S.RowContainer>
           </Spacer>
         )}
-
         {/* endregion */}
 
         {/* region ********** Chart ********** */}
-        <Spacer positionType={'bottom'} sizeType={'medium'}>
-          <LineChart
-            width={350}
-            height={150}
-            data={aggregatesChartData || []}
-            strokeColor={isPriceGoUp ? colors.text.success : colors.text.error}
-          />
-        </Spacer>
+        {aggregatesChartData && (
+          <Spacer positionType={'bottom'} sizeType={'medium'}>
+            <LineChart
+              width={350}
+              height={150}
+              data={aggregatesChartData}
+              strokeColor={
+                isPriceGoUp ? colors.text.success : colors.text.error
+              }
+            />
+          </Spacer>
+        )}
         {/* endregion */}
 
         {/* region ********** About ********** */}
@@ -155,7 +160,6 @@ const CompanyDetails: FC<Props> = ({route}) => {
             <Spacer positionType={'bottom'} sizeType={'medium'}>
               <Typography variant="subtitle">Description</Typography>
             </Spacer>
-
             <ShowMoreText text={companyDetails.description} />
           </Spacer>
         )}
@@ -168,14 +172,14 @@ const CompanyDetails: FC<Props> = ({route}) => {
         {/* endregion */}
 
         {/* region ********** Tags ********** */}
-        {Boolean(companyDetails.tags?.length) && (
+        {companyDetails.tags?.length && (
           <Spacer positionType={'bottom'} sizeType={'medium'}>
             <Spacer positionType={'bottom'} sizeType={'medium'}>
               <Typography variant="subtitle">Tags</Typography>
             </Spacer>
 
             <S.RowContainer>
-              {companyDetails.tags?.map(tag => (
+              {companyDetails.tags.map(tag => (
                 <Spacer
                   key={tag}
                   positionType={['right', 'bottom']}
@@ -189,14 +193,14 @@ const CompanyDetails: FC<Props> = ({route}) => {
         {/* endregion */}
 
         {/* region ********** Related Stocks ********** */}
-        {Boolean(companyDetails.similar?.length) && (
+        {companyDetails.similar?.length && (
           <Spacer positionType={'bottom'} sizeType={'medium'}>
             <Spacer positionType={'bottom'} sizeType={'medium'}>
               <Typography variant="subtitle">Related Stocks</Typography>
             </Spacer>
 
             <S.RowContainer>
-              {companyDetails.similar?.map(tickerItem => (
+              {companyDetails.similar.map(tickerItem => (
                 <Spacer
                   key={tickerItem}
                   positionType={['right', 'bottom']}
@@ -215,6 +219,7 @@ const CompanyDetails: FC<Props> = ({route}) => {
       </S.Container>
     </SafeAreaView>
   );
+  // endregion
 };
 
 export default memo(CompanyDetails);

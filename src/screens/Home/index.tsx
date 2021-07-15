@@ -1,16 +1,20 @@
 import React, {memo} from 'react';
 import {SafeAreaView} from 'react-native';
+import {DrawerNavigationProp} from '@react-navigation/drawer';
 import {useTheme} from 'styled-components';
+import {useNavigation} from '@react-navigation/native';
 
-import useDrawerNavigation from '../../shared/hocs/useDrawerNavigation';
 import Header from '../../shared/components/Header';
 import Icon from '../../shared/components/Icon';
 import Spacer from '../../shared/components/Spacer';
 
 const Home = () => {
+  // region ********** DATA **********
   const {colors} = useTheme();
-  const {openDrawer} = useDrawerNavigation();
+  const {openDrawer} = useNavigation<DrawerNavigationProp<{}>>();
+  // endregion
 
+  // region ********** JSX **********
   return (
     <SafeAreaView>
       <Spacer positionType={'bottom'} sizeType={'medium'}>
@@ -28,6 +32,7 @@ const Home = () => {
       </Spacer>
     </SafeAreaView>
   );
+  // endregion
 };
 
 export default memo(Home);

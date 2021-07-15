@@ -1,4 +1,4 @@
-import React, {FC, memo} from 'react';
+import React, {FC, memo, useMemo} from 'react';
 import {Polyline} from 'react-native-svg';
 
 import * as S from './styles';
@@ -37,15 +37,26 @@ const LineChart: FC<Props> = ({
   const chartWidth = width - padding * 2;
   const chartHeight = height - padding * 2;
 
-  const points = data
-    .map(element => {
-      const x = (element.x / maximumXFromData) * chartWidth + padding;
-      const y =
-        chartHeight - (element.y / maximumYFromData) * chartHeight + padding;
+  const points = useMemo(
+    () =>
+      data
+        .map(el => {
+          const x = (el.x / maximumXFromData) * chartWidth + padding;
+          const y =
+            chartHeight - (el.y / maximumYFromData) * chartHeight + padding;
 
-      return `${x},${y}`;
-    })
-    .join(' ');
+          return `${x},${y}`;
+        })
+        .join(' '),
+    [
+      chartHeight,
+      chartWidth,
+      data,
+      maximumXFromData,
+      maximumYFromData,
+      padding,
+    ],
+  );
   // endregion
 
   // region ********** JSX **********

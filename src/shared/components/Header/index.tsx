@@ -12,9 +12,7 @@ interface Props {
 
 const Header: FC<Props> = ({renderLeftIcon, onButtonPress}) => {
   // region ********** DATA **********
-
   const {isFocus, getTrackInputFocusProps} = useTrackInputFocus();
-
   // endregion
 
   // region ********** JSX **********

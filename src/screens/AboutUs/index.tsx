@@ -6,6 +6,7 @@ import Typography from '../../shared/components/Typography';
 import Spacer from '../../shared/components/Spacer';
 
 const AboutUs = () => {
+  // region ********** CALLBACKS **********
   const handleFreePikLink = useCallback(() => {
     Linking.openURL('https://www.freepik.com');
   }, []);
@@ -17,7 +18,9 @@ const AboutUs = () => {
   const handleOpenStreetMapLink = useCallback(() => {
     Linking.openURL('https://osm.org/copyright');
   }, []);
+  // endregion
 
+  // region ********** JSX **********
   return (
     <SafeAreaView>
       <Spacer positionType={['left', 'right']} sizeType={'medium'}>
@@ -40,6 +43,7 @@ const AboutUs = () => {
       </Spacer>
     </SafeAreaView>
   );
+  // endregion
 };
 
 export default memo(AboutUs);

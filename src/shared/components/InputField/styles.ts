@@ -9,6 +9,7 @@ export const Container = styled.View<Props>`
   align-items: center;
   justify-content: space-between;
   height: 100%;
+  max-height: 50px;
   border: ${({withBorder, theme}) =>
     withBorder ? `1px solid ${theme.colors.ui.secondary}` : 'none'};
   border-radius: ${({withBorder, theme}) =>

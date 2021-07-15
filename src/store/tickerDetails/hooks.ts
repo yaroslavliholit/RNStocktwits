@@ -89,7 +89,7 @@ export const useFetchTickerDetails = (ticker: string) => {
       dispatch(
         fetchDailyOpenCloseData({
           ticker: value,
-          date: getFormatDate({extraDay: -3}),
+          date: getFormatDate({extraDay: -1}),
           closeDate: 'current',
         }),
       );
@@ -97,7 +97,7 @@ export const useFetchTickerDetails = (ticker: string) => {
       dispatch(
         fetchDailyOpenCloseData({
           ticker: value,
-          date: getFormatDate({extraDay: -4}),
+          date: getFormatDate({extraDay: -2}),
           closeDate: 'previous',
         }),
       );
