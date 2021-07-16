@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import {center} from '../../../app/theme/commonStyles';
 
 export const Container = styled.View`
   position: relative;
@@ -17,11 +18,9 @@ export const SearchArea = styled.View<{isSearchFocused?: boolean}>`
 `;
 
 export const MenuButton = styled.TouchableOpacity`
-  display: flex;
-  justify-content: center;
-  align-items: center;
   width: 15%;
   height: 100%;
   border-right-color: ${({theme}) => theme.colors.bg.secondary};
   border-right-width: 1px;
+  ${center}
 `;

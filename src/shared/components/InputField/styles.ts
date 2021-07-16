@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
 
+import {center} from '../../../app/theme/commonStyles';
 import {Props} from './';
 
 export const Container = styled.View<Props>`
@@ -17,12 +18,10 @@ export const Container = styled.View<Props>`
 `;
 
 export const IconContainer = styled.View`
-  display: flex;
-  justify-content: center;
-  align-items: center;
   width: 10%;
   height: 100%;
   margin: 0 ${({theme}) => theme.spacing.s};
+  ${center}
 `;
 
 export const InputField = styled.TextInput<Props>`

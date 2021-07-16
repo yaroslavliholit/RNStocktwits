@@ -1,13 +1,9 @@
 import styled from 'styled-components/native';
 
+import {center} from '../../../app/theme/commonStyles';
 import {Props} from './';
 
-// TODO: add mixins
-
 export const Button = styled.TouchableOpacity<Props>`
-  display: flex;
-  justify-content: center;
-  align-items: center;
   padding: ${({theme}) => theme.spacing.m};
   border-radius: ${({theme}) => theme.radius.common};
   border-color: ${({theme, variant}) =>
@@ -17,6 +13,7 @@ export const Button = styled.TouchableOpacity<Props>`
     variant === 'primary'
       ? theme.colors.brand.primary
       : theme.colors.bg.primary};
+  ${center}
 `;
 
 export const Label = styled.Text<Pick<Props, 'variant'>>`

@@ -1,11 +1,9 @@
 import styled from 'styled-components/native';
 
+import {center} from '../../../app/theme/commonStyles';
 import {Props} from './';
 
 export const Chip = styled.TouchableOpacity<Props>`
-  display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: row;
   height: 40px;
   padding: ${({theme}) => `${theme.spacing.s} ${theme.spacing.l}`};
@@ -13,4 +11,5 @@ export const Chip = styled.TouchableOpacity<Props>`
     withRoundCorners ? theme.radius.large : theme.radius.small};
   overflow: hidden;
   background-color: ${({color}) => color};
+  ${center}
 `;
