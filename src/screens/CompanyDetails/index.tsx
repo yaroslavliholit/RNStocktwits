@@ -50,10 +50,6 @@ const CompanyDetails: FC<Props> = ({route}) => {
   }, [navigate]);
   // endregion
 
-  if (!companyDetails) {
-    return null;
-  }
-
   // region ********** JSX **********
   if (isAnyLoading) {
     return (
@@ -61,6 +57,10 @@ const CompanyDetails: FC<Props> = ({route}) => {
         <ActivityIndicator size={'large'} color={colors.brand.primary} />
       </S.SpinnerWrapper>
     );
+  }
+
+  if (!companyDetails) {
+    return null;
   }
 
   return (
@@ -87,7 +87,7 @@ const CompanyDetails: FC<Props> = ({route}) => {
         {/* endregion */}
 
         {/* region ********** Price ********** */}
-        {priceChangeDifference && priceChangeDifferencePercent && (
+        {Boolean(priceChangeDifference && priceChangeDifferencePercent) && (
           <Spacer positionType={['top', 'bottom']} sizeType={'medium'}>
             <Spacer positionType={'bottom'} sizeType={'small'}>
               <Typography variant={'heading'}>${lastAvailablePrice}</Typography>
@@ -117,7 +117,7 @@ const CompanyDetails: FC<Props> = ({route}) => {
         {/* endregion */}
 
         {/* region ********** Chart ********** */}
-        {aggregatesChartData && (
+        {!!aggregatesChartData && (
           <Spacer positionType={'bottom'} sizeType={'medium'}>
             <LineChart
               width={350}
@@ -155,7 +155,7 @@ const CompanyDetails: FC<Props> = ({route}) => {
           </Spacer>
         </Spacer>
 
-        {companyDetails.description && (
+        {!!companyDetails.description && (
           <Spacer positionType={'bottom'} sizeType={'medium'}>
             <Spacer positionType={'bottom'} sizeType={'medium'}>
               <Typography variant="subtitle">Description</Typography>
@@ -172,7 +172,7 @@ const CompanyDetails: FC<Props> = ({route}) => {
         {/* endregion */}
 
         {/* region ********** Tags ********** */}
-        {companyDetails.tags?.length && (
+        {!!companyDetails.tags?.length && (
           <Spacer positionType={'bottom'} sizeType={'medium'}>
             <Spacer positionType={'bottom'} sizeType={'medium'}>
               <Typography variant="subtitle">Tags</Typography>
@@ -193,7 +193,7 @@ const CompanyDetails: FC<Props> = ({route}) => {
         {/* endregion */}
 
         {/* region ********** Related Stocks ********** */}
-        {companyDetails.similar?.length && (
+        {!!companyDetails.similar?.length && (
           <Spacer positionType={'bottom'} sizeType={'medium'}>
             <Spacer positionType={'bottom'} sizeType={'medium'}>
               <Typography variant="subtitle">Related Stocks</Typography>
