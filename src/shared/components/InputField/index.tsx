@@ -12,7 +12,7 @@ const InputField: FC<Props> = props => {
   const {renderLeftIcon} = props;
 
   return (
-    <S.Container {...props}>
+    <S.Container>
       {renderLeftIcon && <S.IconContainer>{renderLeftIcon}</S.IconContainer>}
       <S.InputField {...props} />
     </S.Container>

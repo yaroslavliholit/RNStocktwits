@@ -49,6 +49,7 @@ const SearchWithSuggestions: FC<Props> = ({isFocus, onFocus, onBlur}) => {
         onBlur={onBlur}
         onFocus={onFocus}
         placeholder={'Search symbols or companies'}
+        placeholderTextColor={colors.text.secondary}
         renderLeftIcon={
           <Icon
             type={'search'}
