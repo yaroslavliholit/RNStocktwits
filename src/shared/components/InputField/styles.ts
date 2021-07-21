@@ -27,5 +27,5 @@ export const IconContainer = styled.View`
 export const InputField = styled.TextInput<Props>`
   width: ${({renderLeftIcon}) => (renderLeftIcon ? '87%' : '100%')};
   height: 100%;
-  color: ${({theme}) => theme.colors.text.secondary};
+  color: ${({theme}) => theme.colors.ui.secondary};
 `;
