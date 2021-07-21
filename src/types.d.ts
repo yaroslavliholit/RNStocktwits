@@ -37,7 +37,7 @@ interface TickerDetails {
   similar?: string[];
   tags?: string[];
   updated?: string;
-  hq_address: string;
+  hqAddress: string;
 }
 
 interface DailyOpenClose {

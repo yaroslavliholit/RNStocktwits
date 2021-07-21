@@ -74,7 +74,7 @@ export const useFetchTickerDetails = (ticker: string) => {
     {label: 'Industry:', value: companyDetails?.industry},
     {label: 'CEO:', value: companyDetails?.ceo},
     {label: 'Employees:', value: companyDetails?.employees},
-    {label: 'Address:', value: companyDetails?.hq_address},
+    {label: 'Address:', value: companyDetails?.hqAddress},
     {label: 'Phone:', value: companyDetails?.phone},
   ];
   // endregion
