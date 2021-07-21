@@ -32,16 +32,22 @@ const TickerMap = ({ticker, ...rest}: PropsWithChildren<Props>) => {
 
   useEffect(() => {
     (async () => {
-      const [result] = await GeocoderOsm.getGeoAddress(ticker.hq_address);
+      try {
+        const [result] = await GeocoderOsm.getGeoAddress(ticker.hqAddress);
 
-      setRegion({
-        latitude: Number(result.lat),
-        longitude: Number(result.lon),
-        latitudeDelta: 0.02,
-        longitudeDelta: 0.02,
-      });
+        if (result) {
+          setRegion({
+            latitude: Number(result.lat),
+            longitude: Number(result.lon),
+            latitudeDelta: 0.02,
+            longitudeDelta: 0.02,
+          });
+        }
+      } catch {
+        setRegion(null);
+      }
     })();
-  }, [ticker.hq_address]);
+  }, [ticker.hqAddress]);
 
   if (!region) {
     return null;
