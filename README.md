@@ -8,6 +8,17 @@ To run the application locally, make sure to set up the development environment 
 
 [Learn more](https://reactnative.dev/docs/environment-setup).
 
+You also need to set environment variables.
+
+## ENV examples
+
+| Name      | Possible value | Description |
+| ------- | ------- | ----------- |
+| LOAD_STORYBOOK | true \ false | Lets you launch a storybook. |
+| POLYGON_API_BASE_URL | https://api.polygon.io | Basic path to API  |
+| POLYGON_API_KEY | *** | Get your key at https://polygon.io/ |
+| GOOGLE_MAPS_API_KEY | *** | Get your key at https://cloud.google.com/maps-platform/ |
+
 ## Available Scripts
 
 In the project directory, you can run:
