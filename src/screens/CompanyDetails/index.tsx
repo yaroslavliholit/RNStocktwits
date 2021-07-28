@@ -1,15 +1,14 @@
-import React, {memo, FC, useCallback} from 'react';
+import React, {memo, useCallback, FC} from 'react';
 import {SafeAreaView, ActivityIndicator} from 'react-native';
 import {RouteProp, useNavigation} from '@react-navigation/native';
 import {useTheme} from 'styled-components';
 
 import {useFetchTickerDetails} from '../../store/tickerDetails/hooks';
-import {getRandomColor} from '../../shared/utils/color';
 import {SearchNavigatorParams} from '../../app/navigation/SearchNavigator';
 import Header from '../../shared/components/Header';
 import Typography from '../../shared/components/Typography';
 import Spacer from '../../shared/components/Spacer';
-import Chip from '../../shared/components/Chip';
+import ChipGroup from '../../shared/components/ChipGroup';
 import Icon from '../../shared/components/Icon';
 import LineChart from '../../shared/components/LineChart';
 import ShowMoreText from '../../shared/components/ShowMoreText';
@@ -174,20 +173,7 @@ const CompanyDetails: FC<Props> = ({route}) => {
         {/* region ********** Tags ********** */}
         {!!companyDetails.tags?.length && (
           <Spacer positionType={'bottom'} sizeType={'medium'}>
-            <Spacer positionType={'bottom'} sizeType={'medium'}>
-              <Typography variant="subtitle">Tags</Typography>
-            </Spacer>
-
-            <S.RowContainer>
-              {companyDetails.tags.map(tag => (
-                <Spacer
-                  key={tag}
-                  positionType={['right', 'bottom']}
-                  sizeType={'small'}>
-                  <Chip label={tag} color={getRandomColor()} />
-                </Spacer>
-              ))}
-            </S.RowContainer>
+            <ChipGroup groupTitle={'Tags'} chips={companyDetails.tags} />
           </Spacer>
         )}
         {/* endregion */}
@@ -195,24 +181,11 @@ const CompanyDetails: FC<Props> = ({route}) => {
         {/* region ********** Related Stocks ********** */}
         {!!companyDetails.similar?.length && (
           <Spacer positionType={'bottom'} sizeType={'medium'}>
-            <Spacer positionType={'bottom'} sizeType={'medium'}>
-              <Typography variant="subtitle">Related Stocks</Typography>
-            </Spacer>
-
-            <S.RowContainer>
-              {companyDetails.similar.map(tickerItem => (
-                <Spacer
-                  key={tickerItem}
-                  positionType={['right', 'bottom']}
-                  sizeType={'small'}>
-                  <Chip
-                    label={tickerItem}
-                    color={getRandomColor()}
-                    onItemClick={triggerSearchTicker}
-                  />
-                </Spacer>
-              ))}
-            </S.RowContainer>
+            <ChipGroup
+              groupTitle={'Related Stocks'}
+              chips={companyDetails.similar}
+              onChipClick={triggerSearchTicker}
+            />
           </Spacer>
         )}
         {/* endregion */}
