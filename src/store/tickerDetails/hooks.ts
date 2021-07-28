@@ -1,4 +1,4 @@
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch, useSelector, batch} from 'react-redux';
 import {useCallback, useMemo} from 'react';
 import {useFocusEffect} from '@react-navigation/native';
 
@@ -7,9 +7,17 @@ import {
   fetchDailyOpenCloseData,
   fetchAggregatesBars,
 } from './actions';
+import {
+  mapDateToRequestDaysCortege,
+  CURRENT_DAY,
+  DEFAULT_DAYS_TO_REQUESTS,
+} from './config';
 import {RootState} from '../../app/redux';
 import {getFormatDate} from '../../shared/utils/date';
 import {isPositiveNumber} from '../../shared/utils/number';
+
+const [lastExtraDay, prevExtraDay] =
+  mapDateToRequestDaysCortege.get(CURRENT_DAY) ?? DEFAULT_DAYS_TO_REQUESTS;
 
 export const useFetchTickerDetails = (ticker: string) => {
   // region ********** DATA **********
@@ -82,25 +90,27 @@ export const useFetchTickerDetails = (ticker: string) => {
   // region ********** CALLBACKS **********
   const fetchTickerDataForCompanyDetailsScreen = useCallback(
     (value: string) => {
-      dispatch(fetchTickerDetails(value));
+      batch(() => {
+        dispatch(fetchTickerDetails(value));
 
-      dispatch(fetchAggregatesBars(value));
+        dispatch(fetchAggregatesBars(value));
 
-      dispatch(
-        fetchDailyOpenCloseData({
-          ticker: value,
-          date: getFormatDate({extraDay: -1}),
-          closeDate: 'current',
-        }),
-      );
+        dispatch(
+          fetchDailyOpenCloseData({
+            ticker: value,
+            date: getFormatDate({extraDay: lastExtraDay}),
+            closeDate: 'current',
+          }),
+        );
 
-      dispatch(
-        fetchDailyOpenCloseData({
-          ticker: value,
-          date: getFormatDate({extraDay: -2}),
-          closeDate: 'previous',
-        }),
-      );
+        dispatch(
+          fetchDailyOpenCloseData({
+            ticker: value,
+            date: getFormatDate({extraDay: prevExtraDay}),
+            closeDate: 'previous',
+          }),
+        );
+      });
     },
     [dispatch],
   );
