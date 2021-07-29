@@ -7,6 +7,7 @@ import LeftArrowIcon from '../../assets/icons/left-arrow.svg';
 import RightArrowIcon from '../../assets/icons/right-arrow.svg';
 import UpArrowIcon from '../../assets/icons/up-arrow.svg';
 import DownArrowIcon from '../../assets/icons/down-arrow.svg';
+import CancelIcon from '../../assets/icons/cancel.svg';
 
 export type IconType =
   | 'trash'
@@ -15,7 +16,8 @@ export type IconType =
   | 'arrow-right'
   | 'arrow-up'
   | 'arrow-down'
-  | 'arrow-left';
+  | 'arrow-left'
+  | 'cancel';
 
 interface Props {
   type: IconType;
@@ -28,6 +30,7 @@ const mapTypeToIcon = {
   trash: TrashIcon,
   menu: MenuIcon,
   search: SearchIcon,
+  cancel: CancelIcon,
   ['arrow-right']: RightArrowIcon,
   ['arrow-up']: UpArrowIcon,
   ['arrow-down']: DownArrowIcon,

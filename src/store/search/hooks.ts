@@ -39,6 +39,11 @@ export const useSearchTickers = () => {
   const handleClearSuggestions = useCallback(() => {
     dispatch(clearSuggestions());
   }, [dispatch]);
+
+  const handleClearSearchQuery = useCallback(() => {
+    setSearchQuery('');
+    handleClearSuggestions();
+  }, [handleClearSuggestions]);
   // endregion
 
   // region ********** EFFECTS **********
@@ -58,11 +63,12 @@ export const useSearchTickers = () => {
   // endregion
 
   return {
+    searchEmpty,
     searchQuery,
     suggestions,
     loading,
     getSearchTickersProps,
     handleClearSuggestions,
-    searchEmpty,
+    handleClearSearchQuery,
   };
 };

@@ -1,4 +1,5 @@
 import React, {useCallback, memo, FC} from 'react';
+import {TouchableOpacity, ActivityIndicator} from 'react-native';
 import {useTheme} from 'styled-components';
 import {useNavigation} from '@react-navigation/native';
 
@@ -21,10 +22,13 @@ const SearchWithSuggestions: FC<Props> = ({isFocus, onFocus, onBlur}) => {
   const {navigate} = useNavigation();
   const {colors} = useTheme();
   const {
+    loading,
+    searchQuery,
     suggestions,
     searchEmpty,
     getSearchTickersProps,
     handleClearSuggestions,
+    handleClearSearchQuery,
   } = useSearchTickers();
   // endregion
 
@@ -57,6 +61,21 @@ const SearchWithSuggestions: FC<Props> = ({isFocus, onFocus, onBlur}) => {
             height={15}
             fill={colors.ui.secondary}
           />
+        }
+        renderRightIcon={
+          <>
+            {Boolean(!loading && isFocus && searchQuery) && (
+              <TouchableOpacity onPress={handleClearSearchQuery}>
+                <Icon
+                  type={'cancel'}
+                  width={12}
+                  height={12}
+                  fill={colors.ui.secondary}
+                />
+              </TouchableOpacity>
+            )}
+            {loading && <ActivityIndicator size={'small'} />}
+          </>
         }
       />
       {Boolean(isFocus && searchEmpty) && (
