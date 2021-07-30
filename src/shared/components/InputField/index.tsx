@@ -5,18 +5,18 @@ import * as S from './styles';
 
 export interface Props extends TextInputProps {
   withBorder?: boolean;
-  renderLeftIcon?: ReactNode;
-  renderRightIcon?: ReactNode;
+  renderLeftNode?: ReactNode;
+  renderRightNode?: ReactNode;
 }
 
 const InputField: FC<Props> = props => {
-  const {renderLeftIcon, renderRightIcon} = props;
+  const {renderLeftNode, renderRightNode} = props;
 
   return (
     <S.Container>
-      {renderLeftIcon && <S.IconContainer>{renderLeftIcon}</S.IconContainer>}
+      {renderLeftNode && <S.IconContainer>{renderLeftNode}</S.IconContainer>}
       <S.InputField {...props} />
-      {renderRightIcon && <S.IconContainer>{renderRightIcon}</S.IconContainer>}
+      {renderRightNode && <S.IconContainer>{renderRightNode}</S.IconContainer>}
     </S.Container>
   );
 };

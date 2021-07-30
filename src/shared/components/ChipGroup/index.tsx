@@ -8,22 +8,22 @@ import * as S from './styles';
 
 interface Props<T> {
   groupTitle: string;
-  chips: T[];
-  onChipClick?: (el: T) => void;
+  data: T[];
+  onChipPress?: (el: T) => void;
 }
 
 const randomColor = getRandomColor();
 
-const ChipGroup: FC<Props<string>> = ({groupTitle, chips, onChipClick}) => (
+const ChipGroup: FC<Props<string>> = ({groupTitle, data, onChipPress}) => (
   <>
     <Spacer positionType={'bottom'} sizeType={'medium'}>
       <Typography variant="subtitle">{groupTitle}</Typography>
     </Spacer>
 
     <S.ChipsContainer>
-      {chips.map(el => (
+      {data.map(el => (
         <Spacer key={el} positionType={['right', 'bottom']} sizeType={'small'}>
-          <Chip label={el} color={randomColor} onItemClick={onChipClick} />
+          <Chip label={el} color={randomColor} onItemPress={onChipPress} />
         </Spacer>
       ))}
     </S.ChipsContainer>

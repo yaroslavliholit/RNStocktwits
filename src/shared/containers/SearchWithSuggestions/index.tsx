@@ -54,7 +54,7 @@ const SearchWithSuggestions: FC<Props> = ({isFocus, onFocus, onBlur}) => {
         onFocus={onFocus}
         placeholder={'Search symbols or companies'}
         placeholderTextColor={colors.ui.secondary}
-        renderLeftIcon={
+        renderLeftNode={
           <Icon
             type={'search'}
             width={15}
@@ -62,7 +62,7 @@ const SearchWithSuggestions: FC<Props> = ({isFocus, onFocus, onBlur}) => {
             fill={colors.ui.secondary}
           />
         }
-        renderRightIcon={
+        renderRightNode={
           <>
             {Boolean(!loading && isFocus && searchQuery) && (
               <TouchableOpacity onPress={handleClearSearchQuery}>

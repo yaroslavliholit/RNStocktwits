@@ -1,4 +1,5 @@
 import React, {memo, FC} from 'react';
+import {useTheme} from 'styled-components';
 
 import useTrimText from '../../hooks/useTrimText';
 import Typography from '../Typography';
@@ -11,6 +12,7 @@ interface Props {
 }
 
 const ShowMoreText: FC<Props> = ({text}) => {
+  // region ********** DATA **********
   const {
     getNumberOfLineProp,
     shouldTrimText,
@@ -18,6 +20,12 @@ const ShowMoreText: FC<Props> = ({text}) => {
     handleToddleCropText,
   } = useTrimText(text);
 
+  const {colors} = useTheme();
+
+  const iconType = isTextTrimmed ? 'arrow-down' : 'arrow-up';
+  // endregion
+
+  // region ********** CALLBACKS **********
   return (
     <>
       <Typography {...getNumberOfLineProp()} variant={'label'}>
@@ -27,16 +35,17 @@ const ShowMoreText: FC<Props> = ({text}) => {
         <Spacer positionType={'top'} sizeType={'small'}>
           <Button variant={'default'} onPress={handleToddleCropText}>
             <Icon
-              type={isTextTrimmed ? 'arrow-down' : 'arrow-up'}
+              type={iconType}
               width={20}
               height={20}
-              fill={'#000000'}
+              fill={colors.text.primary}
             />
           </Button>
         </Spacer>
       )}
     </>
   );
+  // endregion
 };
 
 export default memo(ShowMoreText);

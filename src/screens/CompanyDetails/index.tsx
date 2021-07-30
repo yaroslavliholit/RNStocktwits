@@ -173,7 +173,7 @@ const CompanyDetails: FC<Props> = ({route}) => {
         {/* region ********** Tags ********** */}
         {!!companyDetails.tags?.length && (
           <Spacer positionType={'bottom'} sizeType={'medium'}>
-            <ChipGroup groupTitle={'Tags'} chips={companyDetails.tags} />
+            <ChipGroup groupTitle={'Tags'} data={companyDetails.tags} />
           </Spacer>
         )}
         {/* endregion */}
@@ -183,8 +183,8 @@ const CompanyDetails: FC<Props> = ({route}) => {
           <Spacer positionType={'bottom'} sizeType={'medium'}>
             <ChipGroup
               groupTitle={'Related Stocks'}
-              chips={companyDetails.similar}
-              onChipClick={triggerSearchTicker}
+              data={companyDetails.similar}
+              onChipPress={triggerSearchTicker}
             />
           </Spacer>
         )}

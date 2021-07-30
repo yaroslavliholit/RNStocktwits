@@ -8,25 +8,25 @@ export interface Props extends TouchableOpacityProps {
   label: string;
   color?: string;
   withRoundCorners?: boolean;
-  onItemClick?: (label: string) => void;
+  onItemPress?: (label: string) => void;
 }
 
 const Chip: FC<Props> = props => {
   // region ********** DATA **********
-  const {label, onItemClick} = props;
+  const {label, onItemPress} = props;
   // endregion
 
   // region ********** CALLBACKS **********
-  const handleClick = useCallback(() => {
-    if (onItemClick) {
-      onItemClick(label);
+  const handlePress = useCallback(() => {
+    if (onItemPress) {
+      onItemPress(label);
     }
-  }, [label, onItemClick]);
+  }, [label, onItemPress]);
   // endregion
 
   // region ********** JSX **********
   return (
-    <S.Chip {...props} onPress={handleClick}>
+    <S.Chip {...props} onPress={handlePress}>
       <Typography variant={'button'}>{label}</Typography>
     </S.Chip>
   );
