@@ -17,7 +17,7 @@ const Home = () => {
   // region ********** JSX **********
   return (
     <SafeAreaView>
-      <Spacer positionType={'bottom'} sizeType={'medium'}>
+      <Spacer positionType={'bottom'} sizeType={'large'}>
         <Header
           onButtonPress={openDrawer}
           renderLeftIcon={

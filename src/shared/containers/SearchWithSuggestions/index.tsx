@@ -1,5 +1,10 @@
 import React, {useCallback, memo, FC} from 'react';
-import {TouchableOpacity, ActivityIndicator} from 'react-native';
+import {
+  TouchableOpacity,
+  ActivityIndicator,
+  NativeSyntheticEvent,
+  TextInputSubmitEditingEventData,
+} from 'react-native';
 import {useTheme} from 'styled-components';
 import {useNavigation} from '@react-navigation/native';
 
@@ -33,15 +38,31 @@ const SearchWithSuggestions: FC<Props> = ({isFocus, onFocus, onBlur}) => {
   // endregion
 
   // region ********** CALLBACKS **********
-  const handleSelectSearchItem = useCallback(
-    ({ticker}: Ticker) => {
+  const handleSubmitSearch = useCallback(
+    (ticker: string) => {
       navigate('CompanyDetails', {
         ticker,
       });
 
       handleClearSuggestions();
     },
-    [navigate, handleClearSuggestions],
+    [handleClearSuggestions, navigate],
+  );
+
+  const handleSelectSearchItemFromSuggestion = useCallback(
+    ({ticker}: Ticker) => {
+      handleSubmitSearch(ticker);
+    },
+    [handleSubmitSearch],
+  );
+
+  const handleSubmitSearchEditing = useCallback(
+    ({nativeEvent}: NativeSyntheticEvent<TextInputSubmitEditingEventData>) => {
+      if (nativeEvent.text) {
+        handleSubmitSearch(nativeEvent.text.toUpperCase());
+      }
+    },
+    [handleSubmitSearch],
   );
   // endregion
 
@@ -50,8 +71,7 @@ const SearchWithSuggestions: FC<Props> = ({isFocus, onFocus, onBlur}) => {
     <>
       <InputField
         {...getSearchTickersProps()}
-        onBlur={onBlur}
-        onFocus={onFocus}
+        autoCapitalize={'none'}
         placeholder={'Search symbols or companies'}
         placeholderTextColor={colors.ui.secondary}
         renderLeftNode={
@@ -74,9 +94,14 @@ const SearchWithSuggestions: FC<Props> = ({isFocus, onFocus, onBlur}) => {
                 />
               </TouchableOpacity>
             )}
-            {loading && <ActivityIndicator size={'small'} />}
+            {loading && (
+              <ActivityIndicator size={'small'} color={colors.brand.primary} />
+            )}
           </>
         }
+        onBlur={onBlur}
+        onFocus={onFocus}
+        onSubmitEditing={handleSubmitSearchEditing}
       />
       {Boolean(isFocus && searchEmpty) && (
         <S.SuggestionsWrapper>
@@ -91,7 +116,7 @@ const SearchWithSuggestions: FC<Props> = ({isFocus, onFocus, onBlur}) => {
         <S.SuggestionsWrapper>
           <SuggestionsList
             items={suggestions}
-            onItemSelect={handleSelectSearchItem}
+            onItemSelect={handleSelectSearchItemFromSuggestion}
           />
         </S.SuggestionsWrapper>
       )}
