@@ -74,3 +74,9 @@ interface AggResponseFormatted {
   resultsCount?: number;
   results: AggV2Formatted[];
 }
+
+interface SearchSuggestion {
+  title: string;
+  subtitle: string;
+  sourceType: 'search';
+}

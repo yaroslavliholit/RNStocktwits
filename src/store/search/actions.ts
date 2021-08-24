@@ -3,10 +3,7 @@ import {createAsyncThunk} from '@reduxjs/toolkit';
 import ENV from '../../shared/constants/env';
 import httpAgent from '../../services/httpAgent';
 import apiPaths from '../../shared/constants/apiPaths';
-
-interface TickersResponse {
-  results: Nullable<Ticker[]>;
-}
+import {suggestionsTickersAdapter} from './utils';
 
 export const searchSymbolsCompanies = createAsyncThunk(
   'search/symbols-companies',
@@ -22,6 +19,8 @@ export const searchSymbolsCompanies = createAsyncThunk(
       },
     });
 
-    return (await data) as TickersResponse;
+    return (await suggestionsTickersAdapter(data.results)) as Nullable<
+      SearchSuggestion[]
+    >;
   },
 );

@@ -6,7 +6,7 @@ const search = createSlice({
   name: 'search',
   initialState: {
     searchEmpty: false,
-    suggestions: null as Nullable<Ticker[]>,
+    suggestions: null as Nullable<SearchSuggestion[]>,
     loading: false,
   },
   reducers: {
@@ -20,8 +20,8 @@ const search = createSlice({
         state.loading = true;
       })
       .addCase(searchSymbolsCompanies.fulfilled, (state, action) => {
-        state.suggestions = action.payload.results;
-        state.searchEmpty = Boolean(!action.payload.results);
+        state.suggestions = action.payload;
+        state.searchEmpty = Boolean(!action.payload);
         state.loading = false;
       })
       .addCase(searchSymbolsCompanies.rejected, state => {

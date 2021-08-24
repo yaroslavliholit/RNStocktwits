@@ -50,8 +50,8 @@ const SearchWithSuggestions: FC<Props> = ({isFocus, onFocus, onBlur}) => {
   );
 
   const handleSelectSearchItemFromSuggestion = useCallback(
-    ({ticker}: Ticker) => {
-      handleSubmitSearch(ticker);
+    ({title}: SearchSuggestion) => {
+      handleSubmitSearch(title);
     },
     [handleSubmitSearch],
   );

@@ -38,7 +38,7 @@ const List = <I,>({
         data={items}
         keyExtractor={(_, index) => index.toString()}
         renderItem={({item}) => (
-          <Spacer positionType={'bottom'} sizeType={'medium'}>
+          <Spacer positionType={'bottom'} sizeType={'large'}>
             <TouchableOpacity onPress={handleItemPress(item)}>
               {renderListItemContent(item)}
             </TouchableOpacity>
