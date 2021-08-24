@@ -12,8 +12,6 @@ interface Props<T> {
   onChipPress?: (el: T) => void;
 }
 
-const randomColor = getRandomColor();
-
 const ChipGroup: FC<Props<string>> = ({groupTitle, data, onChipPress}) => (
   <>
     <Spacer positionType={'bottom'} sizeType={'medium'}>
@@ -21,11 +19,18 @@ const ChipGroup: FC<Props<string>> = ({groupTitle, data, onChipPress}) => (
     </Spacer>
 
     <S.ChipsContainer>
-      {data.map(el => (
-        <Spacer key={el} positionType={['right', 'bottom']} sizeType={'small'}>
-          <Chip label={el} color={randomColor} onItemPress={onChipPress} />
-        </Spacer>
-      ))}
+      {data.map(el => {
+        const randomColor = getRandomColor();
+
+        return (
+          <Spacer
+            key={el}
+            positionType={['right', 'bottom']}
+            sizeType={'small'}>
+            <Chip label={el} color={randomColor} onItemPress={onChipPress} />
+          </Spacer>
+        );
+      })}
     </S.ChipsContainer>
   </>
 );
