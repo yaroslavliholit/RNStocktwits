@@ -1,6 +1,6 @@
-import {createSlice} from '@reduxjs/toolkit';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
-import {searchSymbolsCompanies} from './actions';
+import {searchSymbolsCompanies, getSearchHistoryFromStorage} from './actions';
 
 const search = createSlice({
   name: 'search',
@@ -8,10 +8,17 @@ const search = createSlice({
     searchEmpty: false,
     suggestions: null as Nullable<SearchSuggestion[]>,
     loading: false,
+    recentSearches: [] as SearchSuggestion[],
   },
   reducers: {
     clearSuggestions(state) {
       state.suggestions = null;
+    },
+    pushToRecentSearches(state, action: PayloadAction<SearchSuggestion>) {
+      state.recentSearches.push(action.payload);
+    },
+    removeFirstElementFromRecentSearches(state) {
+      state.recentSearches.shift();
     },
   },
   extraReducers: builder => {
@@ -26,10 +33,19 @@ const search = createSlice({
       })
       .addCase(searchSymbolsCompanies.rejected, state => {
         state.loading = false;
+      })
+      .addCase(getSearchHistoryFromStorage.fulfilled, (state, action) => {
+        if (action.payload) {
+          state.recentSearches = action.payload;
+        }
       });
   },
 });
 
-export const {clearSuggestions} = search.actions;
+export const {
+  clearSuggestions,
+  pushToRecentSearches,
+  removeFirstElementFromRecentSearches,
+} = search.actions;
 
 export default search.reducer;

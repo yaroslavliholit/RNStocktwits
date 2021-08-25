@@ -78,5 +78,5 @@ interface AggResponseFormatted {
 interface SearchSuggestion {
   title: string;
   subtitle: string;
-  sourceType: 'search';
+  sourceType: 'search' | 'history';
 }

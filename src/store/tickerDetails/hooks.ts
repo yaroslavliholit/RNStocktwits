@@ -15,6 +15,7 @@ import {
 import {RootState} from '../../app/redux';
 import {getFormatDate} from '../../shared/utils/date';
 import {isPositiveNumber} from '../../shared/utils/number';
+import {useRecentSearches} from '../search/hooks';
 
 const [lastExtraDay, prevExtraDay] =
   mapDateToRequestDaysCortege.get(CURRENT_DAY) ?? DEFAULT_DAYS_TO_REQUESTS;
@@ -22,6 +23,8 @@ const [lastExtraDay, prevExtraDay] =
 export const useFetchTickerDetails = (ticker: string) => {
   // region ********** DATA **********
   const dispatch = useDispatch();
+
+  const {handleSaveTickerToHistory} = useRecentSearches();
 
   const companyDetails = useSelector(
     ({tickerDetails}: RootState) => tickerDetails.companyInfo.data,
@@ -121,6 +124,14 @@ export const useFetchTickerDetails = (ticker: string) => {
     useCallback(() => {
       fetchTickerDataForCompanyDetailsScreen(ticker);
     }, [fetchTickerDataForCompanyDetailsScreen, ticker]),
+  );
+
+  useFocusEffect(
+    useCallback(() => {
+      if (companyDetails) {
+        handleSaveTickerToHistory(companyDetails);
+      }
+    }, [companyDetails, handleSaveTickerToHistory]),
   );
   // endregion
 

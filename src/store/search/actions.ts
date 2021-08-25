@@ -1,5 +1,7 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 
+import Keys from '../../services/storage/keys';
+import Storage from '../../services/storage';
 import ENV from '../../shared/constants/env';
 import httpAgent from '../../services/httpAgent';
 import apiPaths from '../../shared/constants/apiPaths';
@@ -22,5 +24,19 @@ export const searchSymbolsCompanies = createAsyncThunk(
     return (await suggestionsTickersAdapter(data.results)) as Nullable<
       SearchSuggestion[]
     >;
+  },
+);
+
+export const saveSearchHistoryToStorage = createAsyncThunk(
+  'search/save-search-history',
+  async (history: SearchSuggestion[]) => {
+    return await Storage.setData(Keys.SEARCH_HISTORY, history);
+  },
+);
+
+export const getSearchHistoryFromStorage = createAsyncThunk(
+  'search/get-search-history',
+  async () => {
+    return await Storage.getData(Keys.SEARCH_HISTORY);
   },
 );

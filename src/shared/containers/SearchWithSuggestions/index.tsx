@@ -13,7 +13,7 @@ import Icon from '../../components/Icon';
 import SuggestionsList from '../../components/SuggestionsList';
 import Typography from '../../components/Typography';
 import Spacer from '../../components/Spacer';
-import {useSearchTickers} from '../../../store/search/hooks';
+import {useRecentSearches, useSearchTickers} from '../../../store/search/hooks';
 import * as S from './styles';
 
 interface Props {
@@ -35,6 +35,7 @@ const SearchWithSuggestions: FC<Props> = ({isFocus, onFocus, onBlur}) => {
     handleClearSuggestions,
     handleClearSearchQuery,
   } = useSearchTickers();
+  const {searchHistory} = useRecentSearches();
   // endregion
 
   // region ********** CALLBACKS **********
@@ -112,10 +113,10 @@ const SearchWithSuggestions: FC<Props> = ({isFocus, onFocus, onBlur}) => {
           </Spacer>
         </S.SuggestionsWrapper>
       )}
-      {suggestions && isFocus && (
+      {isFocus && (
         <S.SuggestionsWrapper>
           <SuggestionsList
-            items={suggestions}
+            items={suggestions ? suggestions : searchHistory}
             onItemSelect={handleSelectSearchItemFromSuggestion}
           />
         </S.SuggestionsWrapper>
